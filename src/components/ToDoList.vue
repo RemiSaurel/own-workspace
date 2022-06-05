@@ -3,7 +3,7 @@
     <input @keydown.enter="addItem(item)" type="text" name="todo" id="todo_input" v-model="item"
     placeholder="Insérer votre todo">
     <div id="liste">
-      <div v-for="item in items" :key="item.id" class="item">
+      <div v-for="item in items" :key="item" class="item">
         <div id="text">
           {{item}}
         </div>
@@ -54,12 +54,12 @@ export default {
     margin: 8px 0;
     box-sizing: border-box;
     border-radius: 16px;
-    border: 2px solid saddlebrown;
+    border: 3px solid #79624c;
   }
 
   #todo_input:focus {
     outline: none !important;
-    border: 2px solid #8783D1;
+    border: 3px solid #343197;
   }
 
   #liste {
@@ -67,18 +67,24 @@ export default {
     flex-direction: column;
   }
 
+  .checkbox {
+    border-radius: 16px;
+    font-size: 24px;
+  }
+
   .item {
     display: flex;
     font-size: 18px;
     margin-top: 8px;
     align-items: center;
-    padding: 8px 10px 8px 10px;
+    padding: 10px 10px 10px 10px;
     border-radius: 12px;
     max-width: 50vw;
     box-shadow: rgba(111, 111, 111, 0.2) 0px 7px 29px 0px;
     margin-left: auto;
     margin-right: auto;
     word-break: break-all;
+    background-color: white;
   }
 
   .item:hover {
@@ -87,7 +93,7 @@ export default {
 
   #trash {
     font-size: 20px;
-    padding: 8px;
+    padding-left: 8px;
     cursor: pointer;
   }
 </style>
