@@ -5,19 +5,13 @@
       <h3 id="time"></h3>
     </header>
     <to-do-list></to-do-list>
-    <div id="switch_youtube">
-      <label class="switch">
-        <input type="checkbox" v-model="displayYoutube">
-        <span class="slider round"></span>
-      </label>
-    </div>
     <div class="ytb" v-show="displayYoutube">
       <iframe width="80%" height="400" src="https://www.youtube-nocookie.com/embed/MCkTebktHVc?autoplay=1&mute=1" title="YouTube video player" frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
       id="youtube_video">
       </iframe>
     </div>
-    <footer>Made with 💙 by <a href="https://github.com/RemiSaurel" target="_blank" class="name">Rémi Saurel</a> </footer>
+    <footer>Made with <a href="https://github.com/RemiSaurel/todoapp" target="_blank" class="name">💙</a> by <a href="https://www.linkedin.com/in/r%C3%A9mi-saurel/" target="_blank" class="name">Rémi Saurel</a> </footer>
   </div>
 </template>
 
@@ -47,14 +41,12 @@ window.addEventListener("load", () => {
     // get time components
     const hours = today.getHours();
     const minutes = today.getMinutes();
-    const seconds = today.getSeconds();
 
     //add '0' to hour, minute & second when they are less 10
     const hour = hours < 10 ? "0" + hours : hours;
     const minute = minutes < 10 ? "0" + minutes : minutes;
-    const second = seconds < 10 ? "0" + seconds : seconds;
 
-    const time = hour + ":" + minute + ":" + second;
+    const time = hour + ":" + minute;
 
     document.getElementById("time").innerHTML = time;
     setTimeout(clock, 1000);
@@ -76,13 +68,24 @@ a {
 }
 
 body {
-  background-color: #FFF5DE;
+  background: -webkit-linear-gradient(  0deg, rgba(255, 253, 226, 1) 0%, rgba(255, 228, 164, 1) 50%, rgba(255, 217, 153, 1) 100%);
 }
 
 .ytb {
   text-align: center;
   margin-top: 16px;
   user-select: none;
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9, for an aspect ratio of 1:1 change to this value to 100% */
+}
+
+iframe{
+  position: absolute;
+  top: 5%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  border-radius: 16px;
 }
 
 header {
@@ -130,75 +133,4 @@ footer {
   transform-origin: bottom left;
 }
 
-/* SWITCH */
-#switch_youtube {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  margin-top: 16px;
-  margin-right: 10vw;
-}
-
-.switch {
-  position: absolute;
-  justify-content: flex-end;
-  display: inline-block;
-  width: 40px;
-  height: 24px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 2px;
-  bottom: 3px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #79624c;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #79624c;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(17px);
-  -ms-transform: translateX(17px);
-  transform: translateX(17px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 16px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
 </style>
