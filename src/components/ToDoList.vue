@@ -1,7 +1,7 @@
 <template>
   <div id="todolist">
     <input @keydown.enter="addItem(item)" type="text" name="todo" id="todo_input" v-model="item"
-    placeholder="Insérer votre todo">
+    placeholder="Ex: Finir exos maths">
     <div id="liste">
       <div v-for="item in items" :key="item" class="item">
         <div id="text">
@@ -48,8 +48,7 @@ export default {
 
   #todo_input {
     font-size: 1.2rem;
-    width: 50%;
-    max-width: 400px;
+    width: 60%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -67,18 +66,15 @@ export default {
     flex-direction: column;
   }
 
-  .checkbox {
-    border-radius: 16px;
-    font-size: 24px;
-  }
-
   .item {
     display: flex;
+    justify-content: space-between;
     font-size: 18px;
     margin-top: 8px;
     align-items: center;
     padding: 10px 10px 10px 10px;
     border-radius: 12px;
+    min-width: 82px;
     max-width: 50vw;
     box-shadow: rgba(111, 111, 111, 0.2) 0px 7px 29px 0px;
     margin-left: auto;
