@@ -1,25 +1,37 @@
 <template>
-  <div id="todolist">
-    <input @keydown.enter="addItem(item)" type="text" name="todo" id="todo_input" v-model="item"
-    placeholder="Ex: Finir exos maths">
-    <div id="liste">
-      <div v-for="item in items" :key="item" class="item">
-        <div id="text">
-          {{item}}
-        </div>
-        <div @click="removeItem(item)" id="trash">
-          🗑
+  <div class="container">
+    <div id="todolist">
+      <div>
+        <input @keydown.enter="addItem(item)" type="text" name="todo" id="todo_input" v-model="item"
+               placeholder="Ex: Finir exos maths">
+      </div>
+      <div id="liste">
+        <div v-for="item in items" :key="item" class="item">
+          <div id="text">
+            {{item}}
+          </div>
+          <div @click="removeItem(item)" id="trash">
+            🗑
+          </div>
         </div>
       </div>
+    </div>
+
+    <div id="pomodoro">
+      <pomodoro></pomodoro>
     </div>
   </div>
 </template>
 
 <script>
 
+import Pomodoro from "@/components/Pomodoro";
+
 export default {
   name: "ToDoList",
-  components: {},
+  components: {
+    Pomodoro
+  },
   data() {
     return {
       item: "",
@@ -34,7 +46,9 @@ export default {
       }
     },
     removeItem(item) {
-      this.items = this.items.filter(e => e !== item)
+      this.items = this.items.filter(e =>
+          e !== item
+      )
       this.item = ""
     }
   }
@@ -42,13 +56,26 @@ export default {
 </script>
 
 <style scoped>
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #pomodoro {
+    width: 60%;
+  }
+
   #todolist {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-left: 32px;
+    width: 40%;
   }
 
   #todo_input {
     font-size: 1.2rem;
-    width: 60%;
+    width: 100%;
+    height: 52px;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -72,13 +99,11 @@ export default {
     font-size: 18px;
     margin-top: 8px;
     align-items: center;
-    padding: 10px 10px 10px 10px;
+    padding: 12px 22px 12px 22px;
     border-radius: 12px;
     min-width: 82px;
-    max-width: 50vw;
+    max-width: 40vw;
     box-shadow: rgba(111, 111, 111, 0.2) 0px 7px 29px 0px;
-    margin-left: auto;
-    margin-right: auto;
     word-break: break-all;
     background-color: white;
   }
