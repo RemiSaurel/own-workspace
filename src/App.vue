@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <div class="pause"></div>
     <to-do-list></to-do-list>
     <div class="aside">
       <div class="ytb" v-show="displayYoutube">
@@ -16,6 +15,7 @@
 
 <script>
 import ToDoList from "@/components/ToDoList";
+
 export default {
   name: 'App',
   components: {
@@ -43,9 +43,8 @@ a {
 }
 
 body {
-  background: -webkit-linear-gradient(  0deg, rgba(255, 253, 226, 1) 0%, rgba(255, 228, 164, 1) 50%, rgba(255, 217, 153, 1) 100%);
+  background: #fdde95;
 }
-
 footer {
   text-align: center;
   margin-top: 16px;

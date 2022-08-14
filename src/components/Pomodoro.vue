@@ -63,6 +63,7 @@ export default {
       }
       if (!this.isRestingTime) {
         this.enableButton("pause");
+        this.enableButton("reset");
       }
       this.disableButton("start");
       let all = document.querySelectorAll("#presetTime button");
@@ -121,7 +122,7 @@ export default {
           }
           this.prettyTime()
           this.countDownTimer()
-        }, 1000)
+        }, 1)
       }
     },
     changeDots() {
@@ -172,6 +173,7 @@ export default {
 #startStop > button{
   font-size: 32px;
   width: 120px;
+  text-align: center;
 }
 
 #params {
@@ -182,6 +184,7 @@ export default {
   margin: 8px;
   font-size: 24px;
   width: 62px;
+  text-align: center;
 }
 
 #seconds {
@@ -193,26 +196,46 @@ export default {
   width: 10vw;
 }
 
-#message {
-  font-size: 1.6rem;
+@media (max-width: 490px) {
+  #message {
+    display: none;
+  }
 }
 
-.dot {
-  height: 25px;
-  width: 25px;
-  background-color: lightslategrey;
-  border-radius: 50%;
-  margin: 12px 4px 12px 4px;
-  display: inline-block;
+@media (min-width: 490px) {
+  #message {
+    font-size: 1.6rem;
+  }
 }
 
-.active {
-  height: 25px;
-  width: 25px;
-  background-color: mediumseagreen;
-  border-radius: 50%;
-  margin: 12px 4px 12px 4px;
-  display: inline-block;
+@media (max-width: 390px) {
+  .dot {
+    display: none;
+  }
+
+  .active {
+    display: none;
+  }
+}
+
+@media (min-width: 390px) {
+  .dot {
+    height: 25px;
+    width: 25px;
+    background-color: lightslategrey;
+    border-radius: 50%;
+    margin: 12px 4px 12px 4px;
+    display: inline-block;
+  }
+
+  .active {
+    height: 25px;
+    width: 25px;
+    background-color: mediumseagreen;
+    border-radius: 50%;
+    margin: 12px 4px 12px 4px;
+    display: inline-block;
+  }
 }
 
 </style>

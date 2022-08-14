@@ -62,7 +62,8 @@ export default {
   }
 
   #pomodoro {
-    width: 60%;
+    width: 50%;
+    margin-right: 32px;
   }
 
   #todolist {
