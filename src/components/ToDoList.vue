@@ -16,22 +16,14 @@
         </div>
       </div>
     </div>
-
-    <div id="pomodoro">
-      <pomodoro></pomodoro>
-    </div>
   </div>
 </template>
 
 <script>
 
-import Pomodoro from "@/components/Pomodoro";
 
 export default {
   name: "ToDoList",
-  components: {
-    Pomodoro
-  },
   data() {
     return {
       item: "",
@@ -62,14 +54,15 @@ export default {
   }
 
   #pomodoro {
-    width: 60%;
+    width: 50%;
+    margin-right: 32px;
   }
 
   #todolist {
     display: flex;
     flex-direction: column;
     margin-left: 32px;
-    width: 40%;
+    width: 100%;
   }
 
   #todo_input {

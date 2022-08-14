@@ -15,15 +15,15 @@
       </div>
     </div>
     <div id="time">
-      <span id="minutes">{{minutes}}</span>
+      <div id="minutes">
+        <div><i @click="this.addMinutes" class="arrow up"></i></div>
+        <span>{{minutes}}</span>
+        <div><i @click="this.substractMinutes" class="arrow down"></i></div>
+      </div>
       <span id="colon">:</span>
       <span id="seconds">{{seconds}}</span>
     </div>
     <div id="params">
-      <div id="presetTime">
-        <button @click="setMinutes(25)">25'</button>
-        <button @click="setMinutes(45)">45'</button>
-      </div>
       <div id="startStop">
         <button @click="startSession" id="start">▶️</button>
         <button @click="pauseSession" id="pause" disabled>⏸</button>
@@ -35,6 +35,7 @@
 
 <script>
 const MINUTES = 25;
+const RANGE_MINUTES = 5;
 const SECONDS = 0;
 const SHORT_PAUSE = 5;
 const LONG_PAUSE = 30;
@@ -48,21 +49,48 @@ export default {
       sessionStarted: false,
       nbSessionsFinished: 0,
       isRestingTime: false,
-      customTimer: MINUTES
+      customTimer: MINUTES,
     }
   },
   methods: {
-    setMinutes(value) {
-      this.minutes = value.toString();
-      this.customTimer = value;
+    lockArrows() {
+      const arrows = document.querySelectorAll(".arrow");
+      arrows.forEach(arrow => {
+        arrow.style.pointerEvents = "none";
+      });
+    },
+    unlockArrows() {
+      const arrows = document.querySelectorAll(".arrow");
+      arrows.forEach(arrow => {
+        arrow.style.pointerEvents = "auto";
+      });
+    },
+    addMinutes() {
+      this.minutes += RANGE_MINUTES;
+      this.handleLimits()
+      this.customTimer = this.minutes;
+    },
+    substractMinutes() {
+      this.minutes -= RANGE_MINUTES;
+      this.handleLimits()
+      this.customTimer = this.minutes;
+    },
+    handleLimits() {
+      if (this.minutes < 10) {
+        this.minutes = 10;
+      } else if (this.minutes > 60) {
+        this.minutes = 60;
+      }
     },
     startSession() {
       if (!this.sessionStarted) {
+        this.lockArrows()
         this.countDownTimer();
         this.sessionStarted = true;
       }
       if (!this.isRestingTime) {
         this.enableButton("pause");
+        this.enableButton("reset");
       }
       this.disableButton("start");
       let all = document.querySelectorAll("#presetTime button");
@@ -91,6 +119,7 @@ export default {
       let all = document.querySelectorAll("#presetTime button, #start");
       for (let el of all) { el.disabled = false; }
       this.disableButton("pause")
+      this.unlockArrows()
     },
     countDownTimer: function () {
       if (this.minutes === "00" && this.seconds === "00") {
@@ -164,14 +193,19 @@ export default {
 }
 
 #time {
+  display: flex;
+  justify-content: center;
   font-weight: 800;
-  font-size: 8vw;
+  font-size: 5vw;
   text-align: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 #startStop > button{
   font-size: 32px;
   width: 120px;
+  text-align: center;
 }
 
 #params {
@@ -182,37 +216,97 @@ export default {
   margin: 8px;
   font-size: 24px;
   width: 62px;
+  text-align: center;
 }
 
 #seconds {
   display: inline-block;
   width: 10vw;
+  padding-top: 18px;
 }
+
+#colon {
+  padding-top: 15px;
+}
+
 #minutes {
+  display: flex;
+  flex-direction: column;
+}
+
+#minutes > div {
+  display: flex;
+  justify-content: center;
+}
+
+#minutes > span {
   display: inline-block;
   width: 10vw;
 }
 
-#message {
-  font-size: 1.6rem;
+@media (max-width: 490px) {
+  #message {
+    display: none;
+  }
 }
 
-.dot {
-  height: 25px;
-  width: 25px;
-  background-color: lightslategrey;
-  border-radius: 50%;
-  margin: 12px 4px 12px 4px;
-  display: inline-block;
+@media (min-width: 490px) {
+  #message {
+    font-size: 1.6rem;
+  }
 }
 
-.active {
-  height: 25px;
-  width: 25px;
-  background-color: mediumseagreen;
-  border-radius: 50%;
-  margin: 12px 4px 12px 4px;
+@media (max-width: 390px) {
+  .dot {
+    display: none;
+  }
+
+  .active {
+    display: none;
+  }
+}
+
+@media (min-width: 390px) {
+  .dot {
+    height: 25px;
+    width: 25px;
+    background-color: lightslategrey;
+    border-radius: 50%;
+    margin: 12px 4px 12px 4px;
+    display: inline-block;
+  }
+
+  .active {
+    height: 25px;
+    width: 25px;
+    background-color: mediumseagreen;
+    border-radius: 50%;
+    margin: 12px 4px 12px 4px;
+    display: inline-block;
+  }
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 6px 6px 0;
+  font-size: 1rem;
   display: inline-block;
+  padding: 6px;
+}
+
+.arrow:hover {
+  border: solid mediumseagreen;
+  border-width: 0 6px 6px 0;
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 }
 
 </style>
