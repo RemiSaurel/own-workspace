@@ -1,12 +1,16 @@
 <template>
   <div id="app">
-    <to-do-list></to-do-list>
-    <div class="aside">
-      <div class="ytb" v-show="displayYoutube">
-        <iframe width="100%" height="388" src="https://www.youtube-nocookie.com/embed/MCkTebktHVc?autoplay=1&mute=1" title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                id="youtube_video">
-        </iframe>
+    <div id="container">
+      <div id="todo-container">
+        <to-do-list></to-do-list>
+      </div>
+      <div id="right-side">
+        <div id="pomodoro">
+          <pomodoro></pomodoro>
+        </div>
+        <div id="ytb-player">
+          <ytb-player></ytb-player>
+        </div>
       </div>
     </div>
     <footer>Made with <a href="https://github.com/RemiSaurel/todoapp" target="_blank" class="name">💙</a> by <a href="https://www.linkedin.com/in/r%C3%A9mi-saurel/" target="_blank" class="name">Rémi Saurel</a> </footer>
@@ -15,16 +19,15 @@
 
 <script>
 import ToDoList from "@/components/ToDoList";
+import Pomodoro from "@/components/Pomodoro";
+import YtbPlayer from "@/components/YtbPlayer";
 
 export default {
   name: 'App',
   components: {
     ToDoList,
-  },
-  data() {
-    return {
-      displayYoutube: true
-    }
+    Pomodoro,
+    YtbPlayer
   }
 }
 
@@ -52,10 +55,45 @@ footer {
   width: 100%;
 }
 
-.ytb {
-  margin-left: 32px;
-  margin-right: 32px;
-  margin-top: 16px;
+#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+@media (max-width: 380px) {
+  #ytb-player {
+    display: none;
+  }
+}
+
+@media (max-width: 330px) {
+  #ytb-player {
+    display: block;
+  }
+}
+
+@media (max-width: 330px) {
+  #right-side {
+    display: none;
+  }
+}
+
+@media (min-width: 330px) {
+  #right-side {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    margin-right: 32px;
+    margin-left: 32px;
+  }
+}
+
+
+#todo-container {
+  width: 50%;
+  margin-right: 16px;
+  max-width: 500px;
 }
 
 /* TEXT UNDERLINE */
