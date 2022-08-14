@@ -122,7 +122,7 @@ export default {
           }
           this.prettyTime()
           this.countDownTimer()
-        }, 1)
+        }, 1000)
       }
     },
     changeDots() {
