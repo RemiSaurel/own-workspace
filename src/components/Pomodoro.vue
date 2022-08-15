@@ -1,39 +1,43 @@
 <template>
-  <div class="pomodoro">
-    <div id="dot-container">
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
-    <div id="message">
-      <div v-if="this.isRestingTime">
-        Pause time 🎉
+  <div id="container">
+    <div class="pomodoro">
+      <div id="dot-container">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
       </div>
-      <div v-else>
-        Work time 📚
+      <div id="message">
+        <div v-if="this.isRestingTime">
+          Pause time 🎉
+        </div>
+        <div v-else>
+          Work time 📚
+        </div>
+      </div>
+      <div id="time">
+        <div id="minutes">
+          <div><i @click="this.addMinutes" class="arrow up"></i></div>
+          <span>{{minutes}}</span>
+          <div><i @click="this.substractMinutes" class="arrow down"></i></div>
+        </div>
+        <span id="colon">:</span>
+        <span id="seconds">{{seconds}}</span>
+      </div>
+      <div id="params">
+        <div id="startStop">
+          <button @click="startSession" id="start">▶️</button>
+          <button @click="pauseSession" id="pause" disabled>⏸</button>
+          <button @click="resetSession" id="reset">🔄</button>
+        </div>
       </div>
     </div>
-    <div id="time">
-      <div id="minutes">
-        <div><i @click="this.addMinutes" class="arrow up"></i></div>
-        <span>{{minutes}}</span>
-        <div><i @click="this.substractMinutes" class="arrow down"></i></div>
-      </div>
-      <span id="colon">:</span>
-      <span id="seconds">{{seconds}}</span>
-    </div>
-    <div id="params">
-      <div id="startStop">
-        <button @click="startSession" id="start">▶️</button>
-        <button @click="pauseSession" id="pause" disabled>⏸</button>
-        <button @click="resetSession" id="reset">🔄</button>
-      </div>
-    </div>
+    <stats></stats>
   </div>
 </template>
 
 <script>
+import Stats from "@/components/Stats";
 const MINUTES = 25;
 const RANGE_MINUTES = 5;
 const SECONDS = 0;
@@ -42,6 +46,7 @@ const LONG_PAUSE = 30;
 
 export default {
   name: "Pomodoro",
+  components: {Stats},
   data () {
     return {
       minutes: MINUTES,
@@ -190,6 +195,18 @@ export default {
 <style scoped>
 .pomodoro {
   text-align: center;
+  color: white;
+  background: #504746;
+  border-radius: 16px;
+  padding-top: 8px;
+  padding-bottom: 16px;
+  margin-right: 16px;
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 8px;
 }
 
 #time {
@@ -204,7 +221,6 @@ export default {
 
 #startStop > button{
   font-size: 32px;
-  width: 120px;
   text-align: center;
 }
 
@@ -244,19 +260,11 @@ export default {
   width: 10vw;
 }
 
-@media (max-width: 490px) {
+@media (max-width: 635px) {
   #message {
     display: none;
   }
-}
 
-@media (min-width: 490px) {
-  #message {
-    font-size: 1.6rem;
-  }
-}
-
-@media (max-width: 390px) {
   .dot {
     display: none;
   }
@@ -266,7 +274,11 @@ export default {
   }
 }
 
-@media (min-width: 390px) {
+@media (min-width: 635px) {
+  #message {
+    font-size: 1.6rem;
+  }
+
   .dot {
     height: 25px;
     width: 25px;
@@ -285,9 +297,8 @@ export default {
     display: inline-block;
   }
 }
-
 .arrow {
-  border: solid black;
+  border: solid white;
   border-width: 0 6px 6px 0;
   font-size: 1rem;
   display: inline-block;
