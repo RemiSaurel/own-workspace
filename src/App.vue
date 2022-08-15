@@ -55,6 +55,17 @@ footer {
   width: 100%;
 }
 
+#ytb-player {
+  background: #504746;
+  margin-top: 16px;
+  border-radius: 16px;
+  padding: 0 24px 12px 24px;
+}
+
+#pomodoro {
+  width: 100%;
+}
+
 #container {
   display: flex;
   flex-direction: row;
@@ -82,16 +93,15 @@ footer {
 @media (min-width: 330px) {
   #right-side {
     display: flex;
-    width: 50%;
+    width: 60%;
     flex-direction: column;
     margin-right: 32px;
     margin-left: 32px;
   }
 }
 
-
 #todo-container {
-  width: 50%;
+  width: 30%;
   margin-right: 16px;
   max-width: 500px;
 }
