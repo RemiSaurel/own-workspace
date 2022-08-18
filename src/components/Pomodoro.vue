@@ -203,6 +203,7 @@ export default {
   margin-right: 16px;
   min-height: 260px;
   max-height: 330px;
+  box-shadow: rgba(0, 0, 0) 0px 4px 10px;
 }
 
 #container {

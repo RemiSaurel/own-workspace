@@ -18,7 +18,7 @@
       </div>
       <div id="btn">
         <button @click="getNewWordEveryday" id="fetch">
-          Learn another word
+          Générer un mot
         </button>
       </div>
     </div>
@@ -114,6 +114,7 @@ export default {
   color: white;
   max-height: 320px;
   overflow: auto;
+  box-shadow: rgba(0, 0, 0) 0px 4px 10px;
 }
 
 #date-time {
@@ -136,6 +137,7 @@ export default {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 8px;
+  color: #b4c2ff;
 }
 
 #definition {
