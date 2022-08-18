@@ -60,6 +60,7 @@ footer {
   margin-top: 16px;
   border-radius: 16px;
   padding: 0 24px 12px 24px;
+  box-shadow: rgba(0, 0, 0) 0px 4px 10px;
 }
 
 #pomodoro {
