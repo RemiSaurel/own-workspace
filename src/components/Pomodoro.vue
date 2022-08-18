@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import Stats from "@/components/Stats";
+import Stats from "@/components/Infos";
 const MINUTES = 25;
 const RANGE_MINUTES = 5;
 const SECONDS = 0;
@@ -201,6 +201,8 @@ export default {
   padding-top: 8px;
   padding-bottom: 16px;
   margin-right: 16px;
+  min-height: 260px;
+  max-height: 330px;
 }
 
 #container {
@@ -261,17 +263,37 @@ export default {
 }
 
 @media (max-width: 635px) {
-  #message {
+  #container-infos {
     display: none;
+  }
+
+  .pomodoro {
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  #message {
+    font-size: 1.6rem;
   }
 
   .dot {
-    display: none;
+    height: 25px;
+    width: 25px;
+    background-color: lightslategrey;
+    border-radius: 50%;
+    margin: 12px 4px 12px 4px;
+    display: inline-block;
   }
 
   .active {
-    display: none;
+    height: 25px;
+    width: 25px;
+    background-color: mediumseagreen;
+    border-radius: 50%;
+    margin: 12px 4px 12px 4px;
+    display: inline-block;
   }
+
 }
 
 @media (min-width: 635px) {

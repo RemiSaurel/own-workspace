@@ -21,7 +21,6 @@
 
 <script>
 
-
 export default {
   name: "ToDoList",
   data() {
@@ -68,6 +67,7 @@ export default {
   #todo_input {
     font-size: 1.2rem;
     width: 100%;
+    min-width: 150px;
     height: 52px;
     padding: 12px 20px;
     margin: 8px 0;
@@ -95,7 +95,6 @@ export default {
     padding: 12px 22px 12px 22px;
     border-radius: 12px;
     min-width: 82px;
-    max-width: 40vw;
     box-shadow: rgba(111, 111, 111, 0.2) 0px 7px 29px 0px;
     word-break: break-all;
     background-color: white;
