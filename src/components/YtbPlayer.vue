@@ -1,7 +1,7 @@
 <template>
   <div id="ytb-container">
     <div class="ytb" v-show="displayYoutube">
-      <iframe width="100%" height="360" src="https://www.youtube-nocookie.com/embed/MCkTebktHVc?autoplay=1&mute=1" title="YouTube video player" frameborder="0"
+      <iframe width="100%" height="360" src="https://www.youtube-nocookie.com/embed/XDh0JcxrbPM?autoplay=1&mute=1" title="YouTube video player" frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               id="youtube_video">
       </iframe>

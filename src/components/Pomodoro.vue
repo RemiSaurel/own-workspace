@@ -131,7 +131,9 @@ export default {
         if (this.isRestingTime) {
           this.isRestingTime = false;
           this.resetSession();
+          alert("PAUSE TERMINÉE 📚");
         } else {
+          alert("SESSION TERMINÉE 👏");
           this.nbSessionsFinished++;
           if (this.nbSessionsFinished === 4) {
             this.setupPauseTimer(LONG_PAUSE);
