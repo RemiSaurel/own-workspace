@@ -204,7 +204,7 @@ export default {
   padding-bottom: 16px;
   margin-right: 16px;
   min-height: 260px;
-  max-height: 330px;
+  max-height: 380px;
   box-shadow: rgba(0, 0, 0) 0px 4px 10px;
 }
 
