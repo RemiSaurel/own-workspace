@@ -128,6 +128,7 @@ export default {
     },
     countDownTimer: function () {
       if (this.minutes === "00" && this.seconds === "00") {
+        console.log("ici")
         if (this.isRestingTime) {
           this.isRestingTime = false;
           this.resetSession();
@@ -161,11 +162,14 @@ export default {
           } else {
             this.seconds -= 1;
           }
-          this.prettyTime();
           expected += interval;
-          this.timeout = setTimeout(this.countDownTimer, Math.max(0, interval - dt));
+          this.timeout = setTimeout(stepFunc, Math.max(0, interval - dt));
+          this.prettyTime();
+          if (this.minutes === "00" && this.seconds === "00") {
+            this.countDownTimer()
+          }
         }
-        this.timeout = setTimeout(stepFunc, interval)
+        this.timeout = setTimeout(stepFunc, interval);
       }
     },
     changeDots() {
