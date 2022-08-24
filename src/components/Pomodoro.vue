@@ -194,11 +194,16 @@ export default {
       if (this.seconds < 10) {
         this.seconds = "0" + this.seconds;
       }
+      if (this.isRestingTime) {
+        document.title = "PAUSE 👏 " + this.minutes + ":" + this.seconds;
+      } else {
+        document.title = "WORKING 🍅 " + this.minutes + ":" + this.seconds;
+      }
     }
   },
   created() {
     this.prettyTime();
-  }
+  },
 }
 </script>
 
