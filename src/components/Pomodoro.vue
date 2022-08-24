@@ -163,7 +163,7 @@ export default {
           }
           this.prettyTime();
           expected += interval;
-          this.timeout = setTimeout(stepFunc, Math.max(0, interval - dt));
+          this.timeout = setTimeout(this.countDownTimer, Math.max(0, interval - dt));
         }
         this.timeout = setTimeout(stepFunc, interval)
       }
