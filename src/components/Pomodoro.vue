@@ -144,7 +144,13 @@ export default {
           this.changeDots();
         }
       } else {
-        this.timeout = setTimeout(() => {
+        const interval = 1000; // ms
+        let expected = Date.now() + interval;
+        let stepFunc = () => {
+          let dt = Date.now() - expected;
+          if (dt > interval) {
+            // handle error?
+          }
           this.minutes = parseInt(this.minutes);
           this.seconds = parseInt(this.seconds);
           if (this.seconds === 0) {
@@ -155,9 +161,11 @@ export default {
           } else {
             this.seconds -= 1;
           }
-          this.prettyTime()
-          this.countDownTimer()
-        }, 1000)
+          this.prettyTime();
+          expected += interval;
+          this.timeout = setTimeout(stepFunc, Math.max(0, interval - dt));
+        }
+        this.timeout = setTimeout(stepFunc, interval)
       }
     },
     changeDots() {
