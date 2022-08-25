@@ -9,7 +9,7 @@
       </div>
     </div>
     <hr>
-    <div id="word-definition">
+    <div id="word-definition" v-if="displayWord">
       <div id="word">
         {{ this.word.word }}
       </div>
@@ -17,9 +17,27 @@
         {{ this.word.definition }}
       </div>
       <div id="btn">
-        <button @click="getNewWordEveryday" id="fetch">
+        <button @click="getNewWordEveryday" id="fetch" class="btn">
           Générer un mot
         </button>
+      </div>
+      <hr>
+    </div>
+    <div id="stats">
+      <div class="center" v-if="displayWord">
+        <button @click="displayWord = false" class="btn">
+          Voir les stats
+        </button>
+      </div>
+      <div v-else>
+        Total todo: {{this.nbItemsFinished}}
+        <br>
+        Total sessions: {{this.$store.getters.nbSessions}}
+        <div class="center">
+          <button class="btn" id="see-words" @click="displayWord = true">
+            Revoir les mots
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -37,6 +55,7 @@ export default {
         word: "",
         definition: "",
       },
+      displayWord: true,
     }
   },
   methods: {
@@ -100,7 +119,25 @@ export default {
   mounted() {
     this.generateDateOfTheDay();
     this.getCurrentTime();
-    this.getNewWordEveryday()
+    this.getNewWordEveryday();
+  },
+  computed: {
+    itemsFinished() {
+      return this.$store.getters.itemsFinished;
+    },
+    nbItemsFinished() {
+      return this.$store.getters.itemsFinished.length;
+    },
+    colorSelected() {
+      return this.$store.getters.colorSelected;
+    }
+  },
+  watch: {
+    colorSelected: function(color) {
+      if (this.displayWord) {
+        document.getElementById("word").style.color = color;
+      }
+    }
   }
 }
 </script>
@@ -111,10 +148,10 @@ export default {
   position: relative;
   background: #504746;
   width: 100%;
+  height: 300px;
   border-radius: 16px;
   padding: 16px 24px 18px 24px;
   color: white;
-  max-height: 320px;
   overflow: auto;
   box-shadow: rgba(0, 0, 0) 0px 4px 10px;
 }
@@ -134,7 +171,7 @@ export default {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 8px;
-  color: #b4c2ff;
+  color: #fdde95;
 }
 
 #definition {
@@ -147,9 +184,26 @@ export default {
   margin-top: 24px;
 }
 
-#btn > button {
+.btn {
   font-size: 20px;
   padding: 8px;
+}
+
+#fetch {
+  margin-bottom: 8px;
+}
+
+#stats {
+  font-size: 28px;
+  margin-top: 16px;
+}
+
+.center {
+  text-align: center;
+}
+
+#see-words {
+  margin-top: 16px;
 }
 
 @media (max-width: 835px) {

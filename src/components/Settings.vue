@@ -9,16 +9,17 @@
 </template>
 
 <script>
+const DEFAULT_COLOR = "#fdde95";
 export default {
   name: "Settings",
   data() {
     return {
       colors: {
-        default: "#fdde95",
+        default: DEFAULT_COLOR,
         greenBlue: "#9acabf",
         green: "#ABCEA7",
-        salmon: "#E6CEBD",
-        grey: "#babbc8"
+        grey: "#d4d4e8",
+        salmon: "#E6CEBD"
       },
       activeColor: "#504746"
     }
@@ -28,6 +29,7 @@ export default {
       this.removeActiveColorFromPalette()
       event.target.style.borderColor = this.activeColor;
       document.body.style.backgroundColor = color;
+      this.$store.commit("setColorSelected", color);
     },
     removeActiveColorFromPalette() {
       const palette = document.querySelectorAll(".color-palette-item");
@@ -55,9 +57,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin-top: 8px;
-  margin-right: 8px;
-  margin-left: 16px;
+  margin-bottom: 8px;
 }
 
 .color-palette-item {
