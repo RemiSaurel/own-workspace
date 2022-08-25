@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div id="container">
+      <settings></settings>
       <div id="todo-container">
         <to-do-list></to-do-list>
       </div>
@@ -32,13 +33,15 @@
 import ToDoList from "@/components/ToDoList";
 import Pomodoro from "@/components/Pomodoro";
 import YtbPlayer from "@/components/YtbPlayer";
+import Settings from "@/components/Settings";
 
 export default {
   name: 'App',
   components: {
     ToDoList,
     Pomodoro,
-    YtbPlayer
+    YtbPlayer,
+    Settings
   }
 }
 
@@ -88,7 +91,6 @@ footer > div {
 
 #pomodoro {
   width: 100%;
-
 }
 
 #container {
@@ -108,30 +110,6 @@ footer > div {
   flex-direction: column;
   margin-right: 32px;
   margin-left: 32px;
-}
-
-@media (max-width: 330px) {
-  #right-side {
-    display: none;
-  }
-}
-
-@media (max-width: 675px) {
-  #todo-container {
-    width: 100%;
-  }
-  #right-side {
-    width: auto;
-    margin-top: 16px;
-  }
-
-  #container {
-    display: block;
-  }
-  #ytb-player {
-    display: none;
-  }
-
 }
 
 /* TEXT UNDERLINE */
@@ -157,6 +135,30 @@ footer > div {
 .underline:hover:after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+@media (max-width: 330px) {
+  #right-side {
+    display: none;
+  }
+}
+
+@media (max-width: 675px) {
+  #todo-container {
+    width: 100%;
+  }
+  #right-side {
+    width: auto;
+    margin-top: 16px;
+  }
+
+  #container {
+    display: block;
+  }
+  #ytb-player {
+    display: none;
+  }
+
 }
 
 </style>

@@ -32,15 +32,21 @@ export default {
   },
   methods: {
     addItem(item) {
-      if (item.trim() !== "") {
-        this.items.push(item)
-        this.item = ""
+      const trimmedItem = item.trim();
+      if (trimmedItem.length > 0 && this.items.indexOf(trimmedItem) === -1) {
+        this.items = [trimmedItem].concat(this.items)
+        this.clearItem()
+      } else {
+        this.clearItem()
       }
     },
     removeItem(item) {
       this.items = this.items.filter(e =>
           e !== item
       )
+      this.clearItem()
+    },
+    clearItem() {
       this.item = ""
     }
   }
@@ -51,20 +57,16 @@ export default {
   .container {
     display: flex;
     justify-content: space-between;
-    max-height: 770px;
+    max-height: 825px;
     overflow: auto;
     height: 100%;
   }
 
-  #pomodoro {
-    width: 50%;
-    margin-right: 32px;
-  }
 
   #todolist {
     display: flex;
     flex-direction: column;
-    margin-left: 32px;
+    margin-left: 16px;
     width: 100%;
   }
 
@@ -103,20 +105,20 @@ export default {
     height: 52px;
     margin: 8px 16px 0px 0px;
     border-radius: 16px;
-    border: 3px solid #79624c;
-    background-color: #79624c;
+    border: 3px solid #504746;
+    background-color: #504746;
     color: white;
   }
 
   #add_button:hover {
-    border: 3px solid #5b4735;
-    background-color: #5b4735;
+    border: 3px solid #413838;
+    background-color: #413838;
     color: white;
   }
 
   #add_button:active {
-    border: 3px solid #3a2b18;
-    background-color: #3a2b18;
+    border: 3px solid #2f2828;
+    background-color: #2f2828;
     color: white;
   }
 
@@ -124,6 +126,7 @@ export default {
     display: flex;
     flex-direction: column;
     padding-right: 16px;
+    margin-top: 8px;
   }
 
   .item {
@@ -151,18 +154,25 @@ export default {
 
   @media (max-width: 675px) {
     #add_button {
-      margin-right: 0;
       margin-top: 8px;
     }
     #todolist {
       margin-right: 32px;
+      padding-left: 16px;
     }
     #liste {
-      padding-right: 0;
-      margin-top: 8px;
+      padding-bottom: 8px;
+      padding-left: 16px;
       max-height: 320px;
       height: 100%;
       overflow: auto;
+    }
+
+    #input {
+      padding-left: 16px;
+    }
+    .item:hover {
+      box-shadow: #79624c 0px 1px 6px 0px;
     }
   }
 </style>

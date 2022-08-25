@@ -7,8 +7,8 @@
       </iframe>
     </div>
     <div class="params">
-      <button @click="prevPlaylist" id="prev">⏮</button>
-      <button @click="nextPlaylist" id="next">⏭</button>
+      <button @click="prevPlaylist" >⏮</button>
+      <button @click="nextPlaylist" @mousedown.middle="easterEgg" id="next">⏭</button>
     </div>
   </div>
 </template>
@@ -21,6 +21,8 @@ export default {
     return {
       displayYoutube: true,
       livesId: [],
+      easterEggs: [],
+      easterEggsSongsId:-1,
       songId: 0
     }
   },
@@ -29,20 +31,26 @@ export default {
     {
       let lofi = require("../data/lofi.json");
       this.livesId = lofi.id;
+      this.easterEggs = lofi.easterEggs;
     },
     nextPlaylist()
     {
       this.songId++ === this.livesId.length - 1 ? this.songId = 0 : this.songId;
       let id = this.livesId[this.songId];
-      let ytb = document.getElementById("youtube_video")
-      ytb.src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+      this.changeYtbSrc(id)
     },
     prevPlaylist()
     {
       --this.songId === -1 ? this.songId = this.livesId.length - 1: this.songId;
-      console.log(this.songId)
-      console.log(this.livesId.length)
       let id = this.livesId[this.songId];
+      this.changeYtbSrc(id)
+    },
+    easterEgg() {
+      this.easterEggsSongsId++ === this.easterEggs.length - 1 ? this.easterEggsSongsId = 0 : this.easterEggsSongsId;
+      let id = this.easterEggs[this.easterEggsSongsId];
+      this.changeYtbSrc(id)
+    },
+    changeYtbSrc(id) {
       let ytb = document.getElementById("youtube_video")
       ytb.src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
     }

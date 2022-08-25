@@ -338,6 +338,10 @@ export default {
     margin-right: 8px;
     margin-left: 8px;
   }
+  #container {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
 }
 
 @media (max-width: 835px) {
