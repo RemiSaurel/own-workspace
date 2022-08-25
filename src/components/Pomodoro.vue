@@ -128,7 +128,6 @@ export default {
     },
     countDownTimer: function () {
       if (this.minutes === "00" && this.seconds === "00") {
-        console.log("ici")
         if (this.isRestingTime) {
           this.isRestingTime = false;
           this.resetSession();
@@ -136,6 +135,7 @@ export default {
         } else {
           alert("SESSION TERMINÉE 👏");
           this.nbSessionsFinished++;
+          this.$store.commit("setNbSessions");
           if (this.nbSessionsFinished === 4) {
             this.setupPauseTimer(LONG_PAUSE);
             this.nbSessionsFinished = 0;
@@ -221,7 +221,6 @@ export default {
   padding-bottom: 16px;
   margin-right: 16px;
   min-height: 260px;
-  max-height: 380px;
   box-shadow: rgba(0, 0, 0) 0px 4px 10px;
 }
 

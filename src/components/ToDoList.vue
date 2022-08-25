@@ -35,10 +35,8 @@ export default {
       const trimmedItem = item.trim();
       if (trimmedItem.length > 0 && this.items.indexOf(trimmedItem) === -1) {
         this.items = [trimmedItem].concat(this.items)
-        this.clearItem()
-      } else {
-        this.clearItem()
       }
+      this.clearItem()
     },
     removeItem(item) {
       this.items = this.items.filter(e =>
@@ -59,15 +57,12 @@ export default {
     display: flex;
     justify-content: space-between;
     max-height: 825px;
-    overflow: auto;
     height: 100%;
   }
-
 
   #todolist {
     display: flex;
     flex-direction: column;
-    margin-left: 16px;
     width: 100%;
   }
 
@@ -96,6 +91,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 16px;
   }
 
   #add_button {
@@ -133,6 +129,9 @@ export default {
     flex-direction: column;
     padding-right: 16px;
     margin-top: 8px;
+    overflow: auto;
+    padding-left: 16px;
+    padding-bottom: 16px;
   }
 
   .item {
@@ -163,8 +162,8 @@ export default {
       margin-top: 8px;
     }
     #todolist {
-      margin-right: 32px;
-      padding-left: 16px;
+      padding-right: 32px;
+      padding-left: 32px;
     }
     #liste {
       padding-bottom: 8px;

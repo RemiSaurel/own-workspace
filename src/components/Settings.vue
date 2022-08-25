@@ -9,12 +9,13 @@
 </template>
 
 <script>
+const DEFAULT_COLOR = "#fdde95";
 export default {
   name: "Settings",
   data() {
     return {
       colors: {
-        default: "#fdde95",
+        default: DEFAULT_COLOR,
         greenBlue: "#9acabf",
         green: "#ABCEA7",
         grey: "#d4d4e8",

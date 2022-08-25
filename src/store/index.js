@@ -1,14 +1,15 @@
 // store/index.js
 
+
 import Vue from "vue";
 import Vuex from "vuex";
 
 Vue.use(Vuex);
-
 export default new Vuex.Store({
     state: {
         itemsFinished: [],
-        colorSelected: ""
+        colorSelected: "",
+        nbSessions: 0
     },
     getters: {
         itemsFinished(state) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
         },
         colorSelected(state) {
             return state.colorSelected;
+        },
+        nbSessions(state) {
+            return state.nbSessions;
         }
     },
     mutations: {
@@ -24,6 +28,9 @@ export default new Vuex.Store({
         },
         setColorSelected(state, color) {
             state.colorSelected = color;
+        },
+        setNbSessions(state) {
+            state.nbSessions++;
         }
     },
     actions: {
