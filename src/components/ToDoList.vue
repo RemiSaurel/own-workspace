@@ -4,7 +4,7 @@
       <div id="input">
         <input @keydown.enter="addItem(item)" type="text" name="todo" id="todo_input" v-model="item"
                placeholder="Ex: Finir exos maths">
-        <button @click="addItem(item)" id="add_button">+</button>
+        <button @click="addItem(item)" id="add_button" :disabled="this.item === ''">+</button>
       </div>
       <div id="liste">
         <div v-for="item in items" :key="item" class="item">
@@ -79,11 +79,11 @@ export default {
     margin: 8px 16px 0px 0px;
     box-sizing: border-box;
     border-radius: 16px;
-    border: 3px solid #a59182;
+    border: 3px solid #87725f;
   }
 
   #todo_input:hover {
-    border: 3px solid #87725f;
+    border: 3px solid #5b4b3e;
   }
 
   #todo_input:focus {
@@ -108,18 +108,23 @@ export default {
     border: 3px solid #504746;
     background-color: #504746;
     color: white;
+    user-select: none;
+  }
+
+  #add_button:disabled {
+    border: 3px solid #928585;
+    background-color: #928585;
+    pointer-events: none;
   }
 
   #add_button:hover {
     border: 3px solid #413838;
     background-color: #413838;
-    color: white;
   }
 
   #add_button:active {
     border: 3px solid #2f2828;
     background-color: #2f2828;
-    color: white;
   }
 
   #liste {
