@@ -44,6 +44,7 @@ export default {
       this.items = this.items.filter(e =>
           e !== item
       )
+      this.$store.commit("addItemFinished", item);
       this.clearItem()
     },
     clearItem() {

@@ -79,6 +79,7 @@ export default {
         })
     },
     getDefinition(word) {
+      console.log(this.$store.getters.itemsFinished)
       const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + word;
       return fetch(url)
           .then(response => response.json())
@@ -101,6 +102,22 @@ export default {
     this.generateDateOfTheDay();
     this.getCurrentTime();
     this.getNewWordEveryday()
+  },
+  computed: {
+    itemsFinished() {
+      return this.$store.getters.itemsFinished;
+    },
+    colorSelected() {
+      return this.$store.getters.colorSelected;
+    }
+  },
+  watch: {
+    itemsFinished: function(items) {
+      console.log(items);
+    },
+    colorSelected: function(color) {
+      document.getElementById("word").style.color = color;
+    }
   }
 }
 </script>
