@@ -56,7 +56,6 @@ export default {
 <style scoped>
 
 .ytb {
-  margin-top: 24px;
   width: 100%;
 }
 

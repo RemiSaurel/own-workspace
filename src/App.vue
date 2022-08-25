@@ -13,7 +13,18 @@
         </div>
       </div>
     </div>
-    <footer>Made with <a href="https://github.com/RemiSaurel/todoapp" target="_blank" class="name">💙</a> by <a href="https://www.linkedin.com/in/r%C3%A9mi-saurel/" target="_blank" class="name">Rémi Saurel</a> </footer>
+    <footer>
+      <div>
+        <a href="https://github.com/RemiSaurel/own-workspace" target="_blank" class="underline">
+          <img src="../src/res/github.png" alt="github" width="32" height="32">
+        </a>
+      </div>
+      <div>
+        <a href="https://www.linkedin.com/in/r%C3%A9mi-saurel/" target="_blank" class="underline">
+          <img src="../src/res/linkedin.png" alt="github" width="32" height="32">
+        </a>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -48,23 +59,36 @@ a {
 body {
   background: #fdde95;
 }
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
 footer {
-  text-align: center;
-  margin-top: 16px;
-  margin-bottom: 0;
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+footer > div {
+  margin-right: 16px;
 }
 
 #ytb-player {
   background: #504746;
   margin-top: 16px;
   border-radius: 16px;
-  padding: 0 24px 12px 24px;
+  padding: 24px;
   box-shadow: rgba(0, 0, 0) 0px 4px 10px;
 }
 
 #pomodoro {
   width: 100%;
+
 }
 
 #container {
@@ -74,7 +98,7 @@ footer {
 }
 
 #todo-container {
-  width: 30%;
+  width: 40%;
   margin-right: 16px;
 }
 
@@ -92,7 +116,7 @@ footer {
   }
 }
 
-@media (max-width: 535px) {
+@media (max-width: 675px) {
   #todo-container {
     width: 100%;
   }
@@ -100,32 +124,24 @@ footer {
     width: auto;
     margin-top: 16px;
   }
-  #time {
-    font-size: 32px!important;
-  }
 
-  #todolist {
-    margin-right: 32px;
-  }
   #container {
     display: block;
   }
   #ytb-player {
     display: none;
   }
-  #container-infos {
-    display: none;
-  }
+
 }
 
 /* TEXT UNDERLINE */
-.name {
+.underline {
   display: inline-block;
   position: relative;
   color: #79624c;
 }
 
-.name:after {
+.underline:after {
   content: '';
   position: absolute;
   width: 100%;
@@ -138,7 +154,7 @@ footer {
   transition: transform 0.5s ease-out;
 }
 
-.name:hover:after {
+.underline:hover:after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }

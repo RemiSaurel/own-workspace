@@ -282,11 +282,65 @@ export default {
   width: 10vw;
 }
 
-@media (max-width: 635px) {
-  #container-infos {
-    display: none;
+.arrow {
+  border: solid white;
+  border-width: 0 6px 6px 0;
+  font-size: 1rem;
+  display: inline-block;
+  padding: 6px;
+}
+
+.arrow:hover {
+  border: solid mediumseagreen;
+  border-width: 0 6px 6px 0;
+  cursor: pointer;
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+@media (min-width: 635px) {
+  #message {
+    font-size: 1.6rem;
   }
 
+  .dot {
+    height: 25px;
+    width: 25px;
+    background-color: lightslategrey;
+    border-radius: 50%;
+    margin: 12px 4px 12px 4px;
+    display: inline-block;
+  }
+
+  .active {
+    height: 25px;
+    width: 25px;
+    background-color: mediumseagreen;
+    border-radius: 50%;
+    margin: 12px 4px 12px 4px;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 675px) {
+  #time {
+    font-size: 38px;
+  }
+  #colon {
+    margin-right: 8px;
+    margin-left: 8px;
+  }
+}
+
+@media (max-width: 835px) {
   .pomodoro {
     margin-right: 0px;
     width: 100%;
@@ -313,53 +367,7 @@ export default {
     margin: 12px 4px 12px 4px;
     display: inline-block;
   }
-
 }
 
-@media (min-width: 635px) {
-  #message {
-    font-size: 1.6rem;
-  }
-
-  .dot {
-    height: 25px;
-    width: 25px;
-    background-color: lightslategrey;
-    border-radius: 50%;
-    margin: 12px 4px 12px 4px;
-    display: inline-block;
-  }
-
-  .active {
-    height: 25px;
-    width: 25px;
-    background-color: mediumseagreen;
-    border-radius: 50%;
-    margin: 12px 4px 12px 4px;
-    display: inline-block;
-  }
-}
-.arrow {
-  border: solid white;
-  border-width: 0 6px 6px 0;
-  font-size: 1rem;
-  display: inline-block;
-  padding: 6px;
-}
-
-.arrow:hover {
-  border: solid mediumseagreen;
-  border-width: 0 6px 6px 0;
-}
-
-.up {
-  transform: rotate(-135deg);
-  -webkit-transform: rotate(-135deg);
-}
-
-.down {
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-}
 
 </style>

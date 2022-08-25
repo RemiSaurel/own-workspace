@@ -68,14 +68,14 @@ export default {
       return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}`;
     },
     getNewWordEveryday() {
+      document.getElementById("fetch").disabled = true;
       // fetch a new english word everyday
       fetch("https://random-word-api.herokuapp.com/word?number=1")
         .then(response => response.json())
         .then(data => {
           // uppercase first letter of data[0]
-          this.word.word = data[0].charAt(0).toUpperCase() + data[0].slice(1);
-          this.getDefinition(this.word.word);
-          this.word.word += " : "
+          const word = data[0];
+          this.getDefinition(word);
         })
     },
     getDefinition(word) {
@@ -84,18 +84,20 @@ export default {
           .then(response => response.json())
           .then(data => {
             if (data.length > 0) {
-              this.word.definition = data[0].meanings[0].definitions[0];
+              document.getElementById("fetch").disabled = false;
+              const wordUppercased = word.charAt(0).toUpperCase() + word.slice(1);
+              this.word.word = wordUppercased + " : ";
+              this.word.definition = data[0].meanings[0].definitions[0].definition;
             } else {
               // get another word if the word is not found
               this.getNewWordEveryday();
             }
-            this.word.definition = data[0].meanings[0].definitions[0].definition;
           }).catch(error => {
               console.log(error);
           });
     }
   },
-  created() {
+  mounted() {
     this.generateDateOfTheDay();
     this.getCurrentTime();
     this.getNewWordEveryday()
@@ -123,11 +125,6 @@ export default {
   font-size: 36px;
 }
 
-@media (max-width: 1400px) {
-  #time {
-    display: none;
-  }
-}
 
 #word-definition {
   margin-top: 16px;
@@ -153,6 +150,18 @@ export default {
 #btn > button {
   font-size: 20px;
   padding: 8px;
+}
+
+@media (max-width: 835px) {
+  #container-infos {
+    display: none;
+  }
+}
+
+@media (max-width: 1400px) {
+  #time {
+    display: none;
+  }
 }
 
 </style>
