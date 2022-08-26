@@ -135,7 +135,7 @@ export default {
         } else {
           alert("SESSION TERMINÉE 👏");
           this.nbSessionsFinished++;
-          this.$store.commit("setNbSessions");
+          this.$store.commit("updateNbSessionsFinished");
           if (this.nbSessionsFinished === 4) {
             this.setupPauseTimer(LONG_PAUSE);
             this.nbSessionsFinished = 0;
@@ -199,9 +199,9 @@ export default {
         this.seconds = "0" + this.seconds;
       }
       if (this.isRestingTime) {
-        document.title = "PAUSE 👏 " + this.minutes + ":" + this.seconds;
+        document.title = "🏖 " + this.minutes + ":" + this.seconds;
       } else {
-        document.title = "WORKING 🍅 " + this.minutes + ":" + this.seconds;
+        document.title = "🍅 " + this.minutes + ":" + this.seconds;
       }
     }
   },
@@ -305,27 +305,41 @@ export default {
   -webkit-transform: rotate(45deg);
 }
 
-@media (min-width: 635px) {
+#message {
+  font-size: 1.6rem;
+}
+
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: lightslategrey;
+  border-radius: 50%;
+  margin: 12px 4px 12px 4px;
+  display: inline-block;
+}
+
+.active {
+  height: 25px;
+  width: 25px;
+  background-color: mediumseagreen;
+  border-radius: 50%;
+  margin: 12px 4px 12px 4px;
+  display: inline-block;
+}
+/* ********** */
+/* RESPONSIVE */
+/* ********** */
+
+@media (max-width: 835px) {
+  #container {
+    margin-top: 16px;
+  }
   #message {
     font-size: 1.6rem;
   }
-
-  .dot {
-    height: 25px;
-    width: 25px;
-    background-color: lightslategrey;
-    border-radius: 50%;
-    margin: 12px 4px 12px 4px;
-    display: inline-block;
-  }
-
-  .active {
-    height: 25px;
-    width: 25px;
-    background-color: mediumseagreen;
-    border-radius: 50%;
-    margin: 12px 4px 12px 4px;
-    display: inline-block;
+  .pomodoro {
+    margin-right: 8px;
+    width: 50%;
   }
 }
 
@@ -337,38 +351,12 @@ export default {
     margin-right: 8px;
     margin-left: 8px;
   }
-  #container {
-    margin-left: 16px;
-    margin-right: 16px;
-  }
 }
 
-@media (max-width: 835px) {
+@media (max-width: 550px) {
   .pomodoro {
-    margin-right: 0px;
     width: 100%;
-  }
-
-  #message {
-    font-size: 1.6rem;
-  }
-
-  .dot {
-    height: 25px;
-    width: 25px;
-    background-color: lightslategrey;
-    border-radius: 50%;
-    margin: 12px 4px 12px 4px;
-    display: inline-block;
-  }
-
-  .active {
-    height: 25px;
-    width: 25px;
-    background-color: mediumseagreen;
-    border-radius: 50%;
-    margin: 12px 4px 12px 4px;
-    display: inline-block;
+    margin-right: 0;
   }
 }
 

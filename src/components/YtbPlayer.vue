@@ -8,7 +8,7 @@
     </div>
     <div class="params">
       <button @click="prevPlaylist" >⏮</button>
-      <button @click="nextPlaylist" @mousedown.middle="easterEgg" id="next">⏭</button>
+      <button @click="nextPlaylist" @keydown.shift="easterEgg" id="next">⏭</button>
     </div>
   </div>
 </template>

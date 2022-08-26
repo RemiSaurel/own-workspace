@@ -16,7 +16,7 @@
       <div id="definition">
         {{ this.word.definition }}
       </div>
-      <div id="btn">
+      <div id="btn-newword">
         <button @click="getNewWordEveryday" id="fetch" class="btn">
           Générer un mot
         </button>
@@ -26,7 +26,7 @@
     <div id="stats">
       <div class="center" v-if="displayWord">
         <button @click="displayWord = false" class="btn">
-          Voir les stats
+          Session stats
         </button>
       </div>
       <div v-else>
@@ -35,7 +35,7 @@
         Total sessions: {{this.$store.getters.nbSessions}}
         <div class="center">
           <button class="btn" id="see-words" @click="displayWord = true">
-            Revoir les mots
+            English word
           </button>
         </div>
       </div>
@@ -148,7 +148,6 @@ export default {
   position: relative;
   background: #504746;
   width: 100%;
-  height: 300px;
   border-radius: 16px;
   padding: 16px 24px 18px 24px;
   color: white;
@@ -161,7 +160,6 @@ export default {
   justify-content: space-between;
   font-size: 36px;
 }
-
 
 #word-definition {
   margin-top: 16px;
@@ -179,17 +177,14 @@ export default {
   font-weight: lighter;
 }
 
-#btn {
+#btn-newword {
   text-align: center;
-  margin-top: 24px;
+  margin-top: 16px;
 }
 
 .btn {
   font-size: 20px;
   padding: 8px;
-}
-
-#fetch {
   margin-bottom: 8px;
 }
 
@@ -205,15 +200,26 @@ export default {
 #see-words {
   margin-top: 16px;
 }
+/* ********** */
+/* RESPONSIVE */
+/* ********** */
 
-@media (max-width: 835px) {
-  #container-infos {
+@media (max-width: 1400px) {
+  #time {
     display: none;
   }
 }
 
-@media (max-width: 1400px) {
-  #time {
+@media (max-width: 835px) {
+  #container-infos {
+    width: 50%;
+    margin-left: 8px;
+  }
+}
+
+
+@media (max-width: 550px) {
+  #container-infos {
     display: none;
   }
 }
