@@ -6,13 +6,18 @@
                placeholder="Ex: Finir exos maths">
         <button @click="addItem(item)" id="add_button" :disabled="this.item === ''">+</button>
       </div>
-      <div id="liste">
-        <div v-for="item in items" :key="item" class="item">
-          <div id="text">
-            {{item}}
+      <div id="liste" ref="todoList">
+        <div v-for="item in items" :key="item.text" class="item" :id=item :class="item.isPinned? 'pinned' : ''">
+          <div class="text">
+            {{item.text}}
           </div>
-          <div @click="removeItem(item)" id="trash">
-            🗑
+          <div id="emojis">
+            <div @click="pinItem(item)" id="pin">
+              📌
+            </div>
+            <div @click="removeItem(item)" id="trash">
+              🗑
+            </div>
           </div>
         </div>
       </div>
@@ -33,9 +38,14 @@ export default {
   methods: {
     addItem(item) {
       const trimmedItem = item.trim();
-      if (trimmedItem.length > 0 && this.items.indexOf(trimmedItem) === -1) {
-        this.items = [trimmedItem].concat(this.items)
+      const found = this.items.some(item => item.text === trimmedItem)
+      if (trimmedItem.length > 0 && !(found)) {
+        this.items.unshift({
+          text: trimmedItem,
+          isPinned: false
+        });
       }
+      this.sortArrayPinnedElements()
       this.clearItem()
     },
     removeItem(item) {
@@ -47,6 +57,30 @@ export default {
     },
     clearItem() {
       this.item = ""
+    },
+    pinItem(item) {
+      if (item.isPinned) {
+        item.isPinned = false
+        this.sortArrayPinnedElements()
+      } else {
+        item.isPinned = true
+        this.$nextTick(() => {
+          const pinnedElement = document.getElementById(item)
+          pinnedElement.scrollIntoView({behavior: "smooth"})
+        });
+        this.sortArrayPinnedElements()
+      }
+    },
+    sortArrayPinnedElements() {
+      this.items.sort((a, b) => {
+        if (a.isPinned && !b.isPinned) {
+          return -1
+        } else if (!a.isPinned && b.isPinned) {
+          return 1
+        } else {
+          return 0
+        }
+      })
     }
   }
 }
@@ -152,10 +186,22 @@ export default {
   box-shadow: #79624c 0px 1px 6px 0px;
 }
 
-#trash {
-  font-size: 20px;
-  padding-left: 8px;
+.pinned {
+  box-shadow: inset 0px 0px 0px 3px #fd7e7e;
+}
+
+.pinned:hover {
+  box-shadow: inset 0px 0px 0px 3px #ea0000;
+}
+
+#emojis {
+  display: flex;
   cursor: pointer;
+  margin-left: 8px;
+}
+
+#emojis > div {
+  margin-left: 8px;
 }
 
 /* ********** */
