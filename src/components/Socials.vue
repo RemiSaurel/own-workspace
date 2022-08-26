@@ -21,7 +21,11 @@ export default {
   margin-top: 8px;
 }
 
-@media (max-width: 675px) {
+/* ********** */
+/* RESPONSIVE */
+/* ********** */
+
+@media (max-width: 835px) {
   #socials-container {
     display: none;
   }

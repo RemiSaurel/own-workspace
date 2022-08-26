@@ -64,16 +64,6 @@ button:disabled {
   cursor: not-allowed;
 }
 
-footer {
-  display: flex;
-  justify-content: center;
-  margin-top: 24px;
-}
-
-footer > div {
-  margin-right: 16px;
-}
-
 #nav-bar {
   margin-top: 8px;
   margin-left: 16px;
@@ -88,10 +78,6 @@ footer > div {
   border-radius: 16px;
   padding: 24px;
   box-shadow: rgba(0, 0, 0) 0px 4px 10px;
-}
-
-#pomodoro {
-  width: 100%;
 }
 
 #container {
@@ -112,28 +98,27 @@ footer > div {
   margin-left: 32px;
 }
 
+/* ********** */
+/* RESPONSIVE */
+/* ********** */
+
+@media (max-width: 835px) {
+  #container{
+    flex-direction: column;
+  }
+  #todo-container {
+    width: 100%;
+  }
+  #right-side {
+    margin-right: 32px;
+    margin-left: 32px;
+    width: auto;
+  }
+}
+
 @media (max-width: 330px) {
   #right-side {
     display: none;
   }
 }
-
-@media (max-width: 675px) {
-  #todo-container {
-    width: 100%;
-  }
-  #right-side {
-    width: auto;
-    margin-top: 16px;
-  }
-
-  #container {
-    display: block;
-  }
-  #ytb-player {
-    display: none;
-  }
-
-}
-
 </style>

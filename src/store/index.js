@@ -1,6 +1,5 @@
 // store/index.js
 
-
 import Vue from "vue";
 import Vuex from "vuex";
 
@@ -29,7 +28,7 @@ export default new Vuex.Store({
         setColorSelected(state, color) {
             state.colorSelected = color;
         },
-        setNbSessions(state) {
+        updateNbSessionsFinished(state) {
             state.nbSessions++;
         }
     },

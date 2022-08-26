@@ -6,13 +6,18 @@
                placeholder="Ex: Finir exos maths">
         <button @click="addItem(item)" id="add_button" :disabled="this.item === ''">+</button>
       </div>
-      <div id="liste">
-        <div v-for="item in items" :key="item" class="item">
-          <div id="text">
-            {{item}}
+      <div id="liste" ref="todoList">
+        <div v-for="item in items" :key="item.text" class="item" :id=item :class="item.isPinned? 'pinned' : ''">
+          <div class="text">
+            {{item.text}}
           </div>
-          <div @click="removeItem(item)" id="trash">
-            🗑
+          <div id="emojis">
+            <div @click="pinItem(item)" id="pin">
+              📌
+            </div>
+            <div @click="removeItem(item)" id="trash">
+              🗑
+            </div>
           </div>
         </div>
       </div>
@@ -33,9 +38,14 @@ export default {
   methods: {
     addItem(item) {
       const trimmedItem = item.trim();
-      if (trimmedItem.length > 0 && this.items.indexOf(trimmedItem) === -1) {
-        this.items = [trimmedItem].concat(this.items)
+      const found = this.items.some(item => item.text === trimmedItem)
+      if (trimmedItem.length > 0 && !(found)) {
+        this.items.unshift({
+          text: trimmedItem,
+          isPinned: false
+        });
       }
+      this.sortArrayPinnedElements()
       this.clearItem()
     },
     removeItem(item) {
@@ -47,137 +57,168 @@ export default {
     },
     clearItem() {
       this.item = ""
+    },
+    pinItem(item) {
+      if (item.isPinned) {
+        item.isPinned = false
+        this.sortArrayPinnedElements()
+      } else {
+        item.isPinned = true
+        this.$nextTick(() => {
+          const pinnedElement = document.getElementById(item)
+          pinnedElement.scrollIntoView({behavior: "smooth"})
+        });
+        this.sortArrayPinnedElements()
+      }
+    },
+    sortArrayPinnedElements() {
+      this.items.sort((a, b) => {
+        if (a.isPinned && !b.isPinned) {
+          return -1
+        } else if (!a.isPinned && b.isPinned) {
+          return 1
+        } else {
+          return 0
+        }
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-  .container {
-    display: flex;
-    justify-content: space-between;
-    max-height: 825px;
-    height: 100%;
-  }
+.container {
+  display: flex;
+  justify-content: space-between;
+  max-height: 825px;
+  height: 100%;
+}
 
+#todolist {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#todo_input {
+  font-size: 1.2rem;
+  width: 100%;
+  min-width: 150px;
+  height: 52px;
+  padding: 12px 20px;
+  margin-right: 16px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  border: 3px solid #87725f;
+}
+
+#todo_input:hover {
+  border: 3px solid #5b4b3e;
+}
+
+#todo_input:focus {
+  outline: none !important;
+  border: 3px solid #5b4735;
+}
+
+#input {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-top: 8px;
+  vertical-align: baseline;
+}
+
+#add_button {
+  font-size: 2rem;
+  line-height: 1;
+  width: 52px;
+  min-width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  border: 3px solid #504746;
+  background-color: #504746;
+  color: white;
+  user-select: none;
+}
+
+#add_button:disabled {
+  border: 3px solid #928585;
+  background-color: #928585;
+  pointer-events: none;
+}
+
+#add_button:hover {
+  border: 3px solid #413838;
+  background-color: #413838;
+}
+
+#add_button:active {
+  border: 3px solid #2f2828;
+  background-color: #2f2828;
+}
+
+#liste {
+  display: flex;
+  flex-direction: column;
+  padding-right: 16px;
+  margin-top: 8px;
+  overflow: auto;
+  padding-left: 16px;
+  padding-bottom: 16px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  margin-top: 8px;
+  align-items: center;
+  padding: 12px 22px 12px 22px;
+  border-radius: 12px;
+  min-width: 82px;
+  word-break: break-all;
+  background-color: white;
+}
+
+.item:hover {
+  box-shadow: #79624c 0px 1px 6px 0px;
+}
+
+.pinned {
+  box-shadow: inset 0px 0px 0px 3px #fd7e7e;
+}
+
+.pinned:hover {
+  box-shadow: inset 0px 0px 0px 3px #ea0000;
+}
+
+#emojis {
+  display: flex;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+#emojis > div {
+  margin-left: 8px;
+}
+
+/* ********** */
+/* RESPONSIVE */
+/* ********** */
+
+@media (max-width: 835px) {
   #todolist {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  #todo_input {
-    font-size: 1.2rem;
-    width: 100%;
-    min-width: 150px;
-    height: 52px;
-    padding: 12px 20px;
-    margin: 8px 16px 0px 0px;
-    box-sizing: border-box;
-    border-radius: 16px;
-    border: 3px solid #87725f;
-  }
-
-  #todo_input:hover {
-    border: 3px solid #5b4b3e;
-  }
-
-  #todo_input:focus {
-    outline: none !important;
-    border: 3px solid #5b4735;
-  }
-
-  #input {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 16px;
-  }
-
-  #add_button {
-    font-size: 2rem;
-    line-height: 1;
-    width: 52px;
-    min-width: 52px;
-    height: 52px;
-    margin: 8px 16px 0px 0px;
-    border-radius: 16px;
-    border: 3px solid #504746;
-    background-color: #504746;
-    color: white;
-    user-select: none;
-  }
-
-  #add_button:disabled {
-    border: 3px solid #928585;
-    background-color: #928585;
-    pointer-events: none;
-  }
-
-  #add_button:hover {
-    border: 3px solid #413838;
-    background-color: #413838;
-  }
-
-  #add_button:active {
-    border: 3px solid #2f2828;
-    background-color: #2f2828;
-  }
-
-  #liste {
-    display: flex;
-    flex-direction: column;
     padding-right: 16px;
-    margin-top: 8px;
-    overflow: auto;
     padding-left: 16px;
-    padding-bottom: 16px;
   }
-
-  .item {
-    display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-    margin-top: 8px;
-    align-items: center;
-    padding: 12px 22px 12px 22px;
-    border-radius: 12px;
-    min-width: 82px;
-    word-break: break-all;
-    background-color: white;
+  #liste {
+    padding-bottom: 8px;
+    padding-left: 16px;
+    max-height: 230px;
+    height: 100%;
+    overflow: auto;
   }
-
-  .item:hover {
-    box-shadow: #79624c 0px 1px 6px 0px;
-  }
-
-  #trash {
-    font-size: 20px;
-    padding-left: 8px;
-    cursor: pointer;
-  }
-
-  @media (max-width: 675px) {
-    #add_button {
-      margin-top: 8px;
-    }
-    #todolist {
-      padding-right: 32px;
-      padding-left: 32px;
-    }
-    #liste {
-      padding-bottom: 8px;
-      padding-left: 16px;
-      max-height: 320px;
-      height: 100%;
-      overflow: auto;
-    }
-
-    #input {
-      padding-left: 16px;
-    }
-    .item:hover {
-      box-shadow: #79624c 0px 1px 6px 0px;
-    }
-  }
+}
 </style>
