@@ -64,10 +64,10 @@ export default {
         this.sortArrayPinnedElements()
       } else {
         item.isPinned = true
-        this.$nextTick(() => {
-          const pinnedElement = document.getElementById(item)
-          pinnedElement.scrollIntoView({behavior: "smooth"})
-        });
+        const list = document.getElementById("liste");
+        if (window.scrollY !== 0 || list.scrollTop !== 0) {
+          list.scrollTo({top: 0, behavior: 'smooth'});
+        }
         this.sortArrayPinnedElements()
       }
     },
