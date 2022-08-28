@@ -141,6 +141,7 @@ export default {
   background-color: #504746;
   color: white;
   user-select: none;
+  text-align: center;
 }
 
 #add_button:disabled {
