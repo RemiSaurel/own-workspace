@@ -136,6 +136,7 @@ export default {
           alert("SESSION TERMINÉE 👏");
           this.nbSessionsFinished++;
           this.$store.commit("updateNbSessionsFinished");
+          localStorage.setItem("nbSessions", this.$store.getters.nbSessions);
           if (this.nbSessionsFinished === 4) {
             this.setupPauseTimer(LONG_PAUSE);
             this.nbSessionsFinished = 0;

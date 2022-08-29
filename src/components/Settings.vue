@@ -2,7 +2,7 @@
 <div id="settings-container">
   <div id="color-palette" class="bubble-container">
     <div v-for="color in colors" :key="color.id">
-      <div class="bubble-item" :style="{backgroundColor: color, borderColor: activeColor}" @click="setBackgroundColor($event, color)"></div>
+      <div class="bubble-item" :id="color" :style="{backgroundColor: color, borderColor: activeColor}" @click="setBackgroundColor($event, color)"></div>
     </div>
   </div>
 </div>
@@ -30,6 +30,7 @@ export default {
       event.target.style.borderColor = this.activeColor;
       document.body.style.backgroundColor = color;
       this.$store.commit("setColorSelected", color);
+      localStorage.setItem("themeColor", this.$store.getters.colorSelected)
     },
     removeActiveColorFromPalette() {
       const palette = document.querySelectorAll(".bubble-item");
@@ -38,9 +39,9 @@ export default {
       }
     },
     setFirstColor() {
-      // get first div of color-palette
-      const palette = document.querySelectorAll(".bubble-item");
-      palette[0].style.borderColor = this.activeColor;
+      const color = this.$store.getters.globalState.themeColor;
+      document.getElementById(color).style.borderColor = this.activeColor;
+      document.body.style.backgroundColor = color;
     }
   },
   mounted() {

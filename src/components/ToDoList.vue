@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       item: "",
-      items: []
+      items: JSON.parse(this.$store.getters.globalState.currentItems)
     }
   },
   methods: {
@@ -47,6 +47,7 @@ export default {
       }
       this.sortArrayPinnedElements()
       this.clearItem()
+      this.saveCurrentItems()
     },
     removeItem(item) {
       this.items = this.items.filter(e =>
@@ -54,6 +55,8 @@ export default {
       )
       this.$store.commit("addItemFinished", item);
       this.clearItem()
+      this.saveCurrentItems()
+      localStorage.setItem("nbItemsFinished", this.$store.getters.itemsFinished.length);
     },
     clearItem() {
       this.item = ""
@@ -69,6 +72,7 @@ export default {
           list.scrollTo({top: 0, behavior: 'smooth'});
         }
         this.sortArrayPinnedElements()
+        this.saveCurrentItems()
       }
     },
     sortArrayPinnedElements() {
@@ -81,6 +85,9 @@ export default {
           return 0
         }
       })
+    },
+    saveCurrentItems(){
+      localStorage.setItem("currentItems", JSON.stringify(this.items));
     }
   }
 }

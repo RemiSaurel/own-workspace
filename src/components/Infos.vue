@@ -18,7 +18,7 @@
       </div>
       <div id="btn-newword">
         <button @click="getNewWordEveryday" id="fetch" class="btn">
-          Generate a word
+          📝 Generate a word
         </button>
       </div>
       <hr>
@@ -26,16 +26,22 @@
     <div id="stats">
       <div class="center" v-if="displayWord">
         <button @click="displayWord = false" class="btn">
-          Session stats
+          📊 Session stats
         </button>
       </div>
       <div v-else>
         Total todo: {{ this.nbItemsFinished }}
         <br>
-        Total sessions: {{ this.$store.getters.nbSessions }}
+        Total sessions: {{ this.nbSessions }}
+        <br>
+        <span id="hint">(from last session)</span>
         <div class="center">
+          <button @click="resetStats" class="btn" id="reset">
+            🔁 Reset
+          </button>
+          <br>
           <button class="btn" id="see-words" @click="displayWord = true">
-            English word
+            🇬🇧 English word
           </button>
         </div>
       </div>
@@ -134,6 +140,9 @@ export default {
         console.log(error);
       });
     },
+    resetStats() {
+      this.$store.commit('resetStats');
+    },
   },
   mounted() {
     this.generateDateOfTheDay();
@@ -141,15 +150,15 @@ export default {
     this.getNewWordEveryday();
   },
   computed: {
-    itemsFinished() {
-      return this.$store.getters.itemsFinished;
-    },
     nbItemsFinished() {
-      return this.$store.getters.itemsFinished.length;
+      return parseInt(this.$store.getters.globalState.nbItemsFinished) + this.$store.getters.itemsFinished.length
     },
     colorSelected() {
       return this.$store.getters.colorSelected;
     },
+    nbSessions() {
+      return parseInt(this.$store.getters.globalState.nbSessions) + this.$store.getters.nbSessions
+    }
   },
   watch: {
     colorSelected: function(color) {
@@ -216,8 +225,17 @@ export default {
   text-align: center;
 }
 
-#see-words {
+#hint {
+  font-size: 18px;
+  font-weight: lighter;
+}
+
+#reset {
   margin-top: 16px;
+}
+
+#see-words {
+  margin-top: 8px;
 }
 
 /* ********** */

@@ -30,7 +30,7 @@ export default {
       livesId: [],
       easterEggs: [],
       easterEggsSongsId: -1,
-      songId: 0,
+      songId: this.$store.getters.globalState.currentSongIndex,
       muted: true
     }
   },
@@ -42,11 +42,13 @@ export default {
     },
     nextPlaylist() {
       this.songId++ === this.livesId.length - 1 ? this.songId = 0 : this.songId;
+      localStorage.setItem("currentSongIndex", this.songId);
       let id = this.livesId[this.songId];
       this.loadVideoFromApi(id)
     },
     prevPlaylist() {
       --this.songId === -1 ? this.songId = this.livesId.length - 1 : this.songId;
+      localStorage.setItem("currentSongIndex", this.songId);
       let id = this.livesId[this.songId];
       this.loadVideoFromApi(id)
     },
@@ -73,13 +75,17 @@ export default {
       this.muted = !this.muted;
     },
     loadVideoFromApi(id) {
+      this.saveLocalStorage(id);
       player.loadVideoById(id);
+    },
+    saveLocalStorage(id) {
+      localStorage.setItem("lastSong", id);
     },
     loadApi() {
       window.onYouTubeIframeAPIReady = () => {
         // eslint-disable-next-line no-unused-vars
         player = new window.YT.Player("player", {
-          videoId: "XDh0JcxrbPM",
+          videoId: this.$store.getters.globalState.lastSong,
           playerVars: {
             'autoplay': 1,
             'mute': 1,
