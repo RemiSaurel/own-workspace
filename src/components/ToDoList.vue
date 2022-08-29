@@ -56,12 +56,12 @@ export default {
           e !== item
       )
       this.$store.commit("addItemFinished", item);
-      this.clearItem()
-      this.saveCurrentItems()
+      this.clearItem();
+      this.saveCurrentItems();
       localStorage.setItem("nbItemsFinished", this.$store.getters.itemsFinished.length);
       axios.post(HEROKU_URL + 'todos', {
         title: item.text,
-      })
+      });
     },
     clearItem() {
       this.item = ""
