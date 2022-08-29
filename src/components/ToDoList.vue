@@ -26,6 +26,8 @@
 </template>
 
 <script>
+const HEROKU_URL = 'https://workspace-backend.herokuapp.com/';
+import axios from "axios";
 
 export default {
   name: "ToDoList",
@@ -57,6 +59,9 @@ export default {
       this.clearItem()
       this.saveCurrentItems()
       localStorage.setItem("nbItemsFinished", this.$store.getters.itemsFinished.length);
+      axios.post(HEROKU_URL + 'todos', {
+        title: item.text,
+      })
     },
     clearItem() {
       this.item = ""
