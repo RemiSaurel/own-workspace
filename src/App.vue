@@ -103,12 +103,14 @@ button:disabled {
 /* ********** */
 
 @media (max-width: 835px) {
-  #container{
+  #container {
     flex-direction: column;
   }
+
   #todo-container {
     width: 100%;
   }
+
   #right-side {
     margin-right: 32px;
     margin-left: 32px;

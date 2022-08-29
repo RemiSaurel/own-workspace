@@ -18,11 +18,11 @@
       <div id="time">
         <div id="minutes">
           <div><i @click="this.addMinutes" class="arrow up"></i></div>
-          <span>{{minutes}}</span>
+          <span>{{ minutes }}</span>
           <div><i @click="this.substractMinutes" class="arrow down"></i></div>
         </div>
         <span id="colon">:</span>
-        <span id="seconds">{{seconds}}</span>
+        <span id="seconds">{{ seconds }}</span>
       </div>
       <div id="params">
         <div id="startStop">
@@ -38,6 +38,7 @@
 
 <script>
 import Stats from "@/components/Infos";
+
 const MINUTES = 25;
 const RANGE_MINUTES = 5;
 const SECONDS = 0;
@@ -47,7 +48,7 @@ const LONG_PAUSE = 30;
 export default {
   name: "Pomodoro",
   components: {Stats},
-  data () {
+  data() {
     return {
       minutes: MINUTES,
       seconds: SECONDS,
@@ -99,7 +100,9 @@ export default {
       }
       this.disableButton("start");
       let all = document.querySelectorAll("#presetTime button");
-      for (let el of all) { el.disabled = true; }
+      for (let el of all) {
+        el.disabled = true;
+      }
     },
     pauseSession() {
       this.sessionStarted = false;
@@ -122,7 +125,9 @@ export default {
       this.prettyTime();
       clearTimeout(this.timeout);
       let all = document.querySelectorAll("#presetTime button, #start");
-      for (let el of all) { el.disabled = false; }
+      for (let el of all) {
+        el.disabled = false;
+      }
       this.disableButton("pause")
       this.unlockArrows()
     },
@@ -136,6 +141,7 @@ export default {
           alert("SESSION TERMINÉE 👏");
           this.nbSessionsFinished++;
           this.$store.commit("updateNbSessionsFinished");
+          localStorage.setItem("nbSessions", this.$store.getters.nbSessions);
           if (this.nbSessionsFinished === 4) {
             this.setupPauseTimer(LONG_PAUSE);
             this.nbSessionsFinished = 0;
@@ -181,7 +187,7 @@ export default {
         dots[i].classList.add("active");
       }
     },
-    setupPauseTimer(minutes){
+    setupPauseTimer(minutes) {
       this.isRestingTime = true;
       this.sessionStarted = false;
       this.enableButton("start");
@@ -191,7 +197,7 @@ export default {
       this.seconds = 0;
       this.prettyTime();
     },
-    prettyTime () {
+    prettyTime() {
       if (this.minutes < 10) {
         this.minutes = "0" + this.minutes;
       }
@@ -240,7 +246,7 @@ export default {
   margin-bottom: 16px;
 }
 
-#startStop > button{
+#startStop > button {
   font-size: 32px;
   text-align: center;
 }
@@ -326,6 +332,7 @@ export default {
   margin: 12px 4px 12px 4px;
   display: inline-block;
 }
+
 /* ********** */
 /* RESPONSIVE */
 /* ********** */
@@ -334,9 +341,11 @@ export default {
   #container {
     margin-top: 16px;
   }
+
   #message {
     font-size: 1.6rem;
   }
+
   .pomodoro {
     margin-right: 8px;
     width: 50%;
@@ -347,6 +356,7 @@ export default {
   #time {
     font-size: 38px;
   }
+
   #colon {
     margin-right: 8px;
     margin-left: 8px;
