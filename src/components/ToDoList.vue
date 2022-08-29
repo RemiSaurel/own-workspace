@@ -26,8 +26,8 @@
 </template>
 
 <script>
-const HEROKU_URL = 'https://workspace-backend.herokuapp.com/';
 import axios from "axios";
+import {HEROKU_URL} from "@/App";
 
 export default {
   name: "ToDoList",

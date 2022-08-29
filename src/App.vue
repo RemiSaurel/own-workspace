@@ -27,6 +27,9 @@ import YtbPlayer from "@/components/YtbPlayer";
 import Settings from "@/components/Settings";
 import Socials from "@/components/Socials";
 
+export const HEROKU_URL = 'https://workspace-backend.herokuapp.com/';
+export const LOCALHOST_URL = 'http://localhost:3000/';
+
 export default {
   name: 'App',
   components: {
