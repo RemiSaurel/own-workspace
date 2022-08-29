@@ -1,11 +1,6 @@
 <template>
   <div id="ytb-container">
-    <div class="ytb" v-show="displayYoutube">
-      <iframe width="100%" height="360" src="https://www.youtube-nocookie.com/embed/XDh0JcxrbPM?autoplay=1&mute=1" title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              id="youtube_video">
-      </iframe>
-    </div>
+    <div class="ytb" v-show="displayYoutube" id="player"></div>
     <div class="params">
       <button @click="prevPlaylist" >⏮</button>
       <button @click="nextPlaylist" @keydown.shift="easterEgg" id="next">⏭</button>
@@ -14,6 +9,15 @@
 </template>
 
 <script>
+function setupYtbApi() {
+  const tag = document.createElement("script");
+  tag.id = "iframe-demo";
+  tag.src = "https://www.youtube.com/iframe_api";
+  const [firstScriptTag] = document.getElementsByTagName("script");
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
+let player;
 
 export default {
   name: "YtbPlayer",
@@ -51,12 +55,36 @@ export default {
       this.changeYtbSrc(id)
     },
     changeYtbSrc(id) {
-      let ytb = document.getElementById("youtube_video")
-      ytb.src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+      player.loadVideoById(id);
+    },
+    loadApi() {
+      window.onYouTubeIframeAPIReady = () => {
+        // eslint-disable-next-line no-unused-vars
+        player = new window.YT.Player("player", {
+          videoId: "XDh0JcxrbPM",
+          playerVars: {
+            'autoplay': 1,
+            'mute': 1
+          },
+          events: {
+            onStateChange: window.onPlayerStateChange
+          }
+        });
+        document.getElementById("player").style.width = "100%";
+      };
+
+      window.onPlayerStateChange = (event) => {
+        if (event.data === 0) {
+          this.nextPlaylist()
+        }
+      };
+
     }
   },
   created() {
     this.readFileAndStore();
+    setupYtbApi();
+    this.loadApi();
   }
 }
 </script>
