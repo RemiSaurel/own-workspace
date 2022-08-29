@@ -2,8 +2,11 @@
   <div id="ytb-container">
     <div class="ytb" v-show="displayYoutube" id="player"></div>
     <div class="params">
-      <button @click="prevPlaylist" >⏮</button>
+      <button @click="prevPlaylist">⏮</button>
+      <button @click="pausePlayPlaylist">⏯</button>
       <button @click="nextPlaylist" @keydown.shift="easterEgg" id="next">⏭</button>
+      <button @click="setMuteState" v-if="!muted">🔇</button>
+      <button @click="setMuteState" v-else>🔊</button>
     </div>
   </div>
 </template>
@@ -26,35 +29,50 @@ export default {
       displayYoutube: true,
       livesId: [],
       easterEggs: [],
-      easterEggsSongsId:-1,
-      songId: 0
+      easterEggsSongsId: -1,
+      songId: 0,
+      muted: true
     }
   },
   methods: {
-    readFileAndStore()
-    {
+    readFileAndStore() {
       let lofi = require("../data/lofi.json");
       this.livesId = lofi.id;
       this.easterEggs = lofi.easterEggs;
     },
-    nextPlaylist()
-    {
+    nextPlaylist() {
       this.songId++ === this.livesId.length - 1 ? this.songId = 0 : this.songId;
       let id = this.livesId[this.songId];
-      this.changeYtbSrc(id)
+      this.loadVideoFromApi(id)
     },
-    prevPlaylist()
-    {
-      --this.songId === -1 ? this.songId = this.livesId.length - 1: this.songId;
+    prevPlaylist() {
+      --this.songId === -1 ? this.songId = this.livesId.length - 1 : this.songId;
       let id = this.livesId[this.songId];
-      this.changeYtbSrc(id)
+      this.loadVideoFromApi(id)
+    },
+    pausePlayPlaylist() {
+      if (player.getPlayerState() === 1) {
+        player.pauseVideo();
+      } else {
+        player.playVideo();
+      }
     },
     easterEgg() {
       this.easterEggsSongsId++ === this.easterEggs.length - 1 ? this.easterEggsSongsId = 0 : this.easterEggsSongsId;
       let id = this.easterEggs[this.easterEggsSongsId];
-      this.changeYtbSrc(id)
+      this.loadVideoFromApi(id)
     },
-    changeYtbSrc(id) {
+    setMuteState() {
+      if (this.muted) {
+        player.unMute();
+        player.setVolume(15);
+      } else {
+        player.mute();
+      }
+
+      this.muted = !this.muted;
+    },
+    loadVideoFromApi(id) {
       player.loadVideoById(id);
     },
     loadApi() {
@@ -64,13 +82,16 @@ export default {
           videoId: "XDh0JcxrbPM",
           playerVars: {
             'autoplay': 1,
-            'mute': 1
+            'mute': 1,
+            'rel': 0,
+            'showInfo': 0
           },
           events: {
             onStateChange: window.onPlayerStateChange
           }
         });
-        document.getElementById("player").style.width = "100%";
+        let player_id = document.getElementById("player")
+        player_id.style.width = "100%";
       };
 
       window.onPlayerStateChange = (event) => {
