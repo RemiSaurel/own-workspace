@@ -1,11 +1,11 @@
 # Own-Workspace app
 
-Application créée pour découvrir Vue.js 🎉\
+This app has been created to discover Vue.js 🎉\
 
-Pour voir l'application : https://workspace-remisaurel.vercel.app/
+Link : https://workspace-remisaurel.vercel.app/
 
-### Fonctionnalités:
+### Features:
 - Pomodoro timer
 - Todolist
-- Date et heure du jour avec un mot aléatoire anglais + définition (possibilité de générer d'autre mots)
-- Lecteur Youtube avec différentes playlists (ne pas hésiter à PR dans le fichier src/data/lofi.json pour d'autres playlists
+- Date and time of day with a random English word + definition (possibility to generate other words)
+- Youtube player with different playlists (don't hesitate to PR in the src/data/lofi.json file for other playlists / songs)
