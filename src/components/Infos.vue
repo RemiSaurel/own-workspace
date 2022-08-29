@@ -34,10 +34,10 @@
         <br>
         Total sessions: {{ this.nbSessions }}
         <br>
-        <span id="hint">(from last session)</span>
+        <span id="hint">(last + current session)</span>
         <div class="center">
-          <button @click="resetStats" class="btn" id="reset">
-            🔁 Reset
+          <button @click="resetStats" class="btn" id="reset-stats" :disabled="resetDone">
+            🔁 Reset last session
           </button>
           <br>
           <button class="btn" id="see-words" @click="displayWord = true">
@@ -62,6 +62,7 @@ export default {
         definition: '',
       },
       displayWord: true,
+      resetDone: false
     };
   },
   methods: {
@@ -141,7 +142,9 @@ export default {
       });
     },
     resetStats() {
+      this.resetDone = true;
       this.$store.commit('resetStats');
+      console.log(this.resetDone)
     },
   },
   mounted() {
@@ -230,7 +233,7 @@ export default {
   font-weight: lighter;
 }
 
-#reset {
+#reset-stats {
   margin-top: 16px;
 }
 
