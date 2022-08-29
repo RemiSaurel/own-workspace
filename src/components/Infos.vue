@@ -18,7 +18,7 @@
       </div>
       <div id="btn-newword">
         <button @click="getNewWordEveryday" id="fetch" class="btn">
-          Générer un mot
+          Generate a word
         </button>
       </div>
       <hr>
@@ -30,9 +30,9 @@
         </button>
       </div>
       <div v-else>
-        Total todo: {{this.nbItemsFinished}}
+        Total todo: {{ this.nbItemsFinished }}
         <br>
-        Total sessions: {{this.$store.getters.nbSessions}}
+        Total sessions: {{ this.$store.getters.nbSessions }}
         <div class="center">
           <button class="btn" id="see-words" @click="displayWord = true">
             English word
@@ -46,17 +46,17 @@
 <script>
 
 export default {
-  name: "Stats",
+  name: 'Stats',
   data() {
     return {
-      date: "",
-      time: "",
+      date: '',
+      time: '',
       word: {
-        word: "",
-        definition: "",
+        word: '',
+        definition: '',
       },
       displayWord: true,
-    }
+    };
   },
   methods: {
     generateDateOfTheDay() {
@@ -69,9 +69,28 @@ export default {
       }, 1000);
     },
     prettyPrintDate(date, day, month) {
-      const days = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+      const days = [
+        'Dimanche',
+        'Lundi',
+        'Mardi',
+        'Mercredi',
+        'Jeudi',
+        'Vendredi',
+        'Samedi'];
       const dayOfTheWeek = days[date.getDay()];
-      const months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+      const months = [
+        'janvier',
+        'février',
+        'mars',
+        'avril',
+        'mai',
+        'juin',
+        'juillet',
+        'août',
+        'septembre',
+        'octobre',
+        'novembre',
+        'décembre'];
       return `${dayOfTheWeek}, ${day} ${months[month - 1]}`;
     },
     getCurrentTime() {
@@ -84,37 +103,37 @@ export default {
       }, 1000);
     },
     prettyPrintTime(hours, minutes) {
-      return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}`;
+      return `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ?
+          '0' + minutes :
+          minutes}`;
     },
     getNewWordEveryday() {
-      document.getElementById("fetch").disabled = true;
+      document.getElementById('fetch').disabled = true;
       // fetch a new english word everyday
-      fetch("https://random-word-api.herokuapp.com/word?number=1")
-        .then(response => response.json())
-        .then(data => {
-          // uppercase first letter of data[0]
-          const word = data[0];
-          this.getDefinition(word);
-        })
+      fetch('https://random-word-api.herokuapp.com/word?number=1').
+          then(response => response.json()).
+          then(data => {
+            // uppercase first letter of data[0]
+            const word = data[0];
+            this.getDefinition(word);
+          });
     },
     getDefinition(word) {
       const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + word;
-      return fetch(url)
-          .then(response => response.json())
-          .then(data => {
-            if (data.length > 0) {
-              document.getElementById("fetch").disabled = false;
-              const wordUppercased = word.charAt(0).toUpperCase() + word.slice(1);
-              this.word.word = wordUppercased + " : ";
-              this.word.definition = data[0].meanings[0].definitions[0].definition;
-            } else {
-              // get another word if the word is not found
-              this.getNewWordEveryday();
-            }
-          }).catch(error => {
-              console.log(error);
-          });
-    }
+      return fetch(url).then(response => response.json()).then(data => {
+        if (data.length > 0) {
+          document.getElementById('fetch').disabled = false;
+          const wordUppercased = word.charAt(0).toUpperCase() + word.slice(1);
+          this.word.word = wordUppercased + ' : ';
+          this.word.definition = data[0].meanings[0].definitions[0].definition;
+        } else {
+          // get another word if the word is not found
+          this.getNewWordEveryday();
+        }
+      }).catch(error => {
+        console.log(error);
+      });
+    },
   },
   mounted() {
     this.generateDateOfTheDay();
@@ -130,16 +149,16 @@ export default {
     },
     colorSelected() {
       return this.$store.getters.colorSelected;
-    }
+    },
   },
   watch: {
     colorSelected: function(color) {
       if (this.displayWord) {
-        document.getElementById("word").style.color = color;
+        document.getElementById('word').style.color = color;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -200,6 +219,7 @@ export default {
 #see-words {
   margin-top: 16px;
 }
+
 /* ********** */
 /* RESPONSIVE */
 /* ********** */
