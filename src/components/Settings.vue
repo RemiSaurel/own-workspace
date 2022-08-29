@@ -1,11 +1,12 @@
 <template>
-<div id="settings-container">
-  <div id="color-palette" class="bubble-container">
-    <div v-for="color in colors" :key="color.id">
-      <div class="bubble-item" :id="color" :style="{backgroundColor: color, borderColor: activeColor}" @click="setBackgroundColor($event, color)"></div>
+  <div id="settings-container">
+    <div id="color-palette" class="bubble-container">
+      <div v-for="color in colors" :key="color.id">
+        <div class="bubble-item" :id="color" :style="{backgroundColor: color, borderColor: activeColor}"
+             @click="setBackgroundColor($event, color)"></div>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -25,7 +26,7 @@ export default {
     }
   },
   methods: {
-    setBackgroundColor(event,color) {
+    setBackgroundColor(event, color) {
       this.removeActiveColorFromPalette()
       event.target.style.borderColor = this.activeColor;
       document.body.style.backgroundColor = color;
@@ -80,6 +81,7 @@ export default {
     justify-content: center;
     margin-top: 8px;
   }
+
   .bubble-item {
     margin-top: 0;
     margin-right: 4px;

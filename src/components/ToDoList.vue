@@ -9,7 +9,7 @@
       <div id="liste" ref="todoList">
         <div v-for="item in items" :key="item.text" class="item" :id=item :class="item.isPinned? 'pinned' : ''">
           <div class="text">
-            {{item.text}}
+            {{ item.text }}
           </div>
           <div id="emojis">
             <div @click="pinItem(item)" id="pin">
@@ -86,7 +86,7 @@ export default {
         }
       })
     },
-    saveCurrentItems(){
+    saveCurrentItems() {
       localStorage.setItem("currentItems", JSON.stringify(this.items));
     }
   }
@@ -221,6 +221,7 @@ export default {
     padding-right: 16px;
     padding-left: 16px;
   }
+
   #liste {
     padding-bottom: 8px;
     padding-left: 16px;

@@ -144,7 +144,6 @@ export default {
     resetStats() {
       this.resetDone = true;
       this.$store.commit('resetStats');
-      console.log(this.resetDone)
     },
   },
   mounted() {
